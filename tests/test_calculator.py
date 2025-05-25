@@ -1,6 +1,6 @@
 import unittest
 
-from ..Calculator import Calculator
+from ..src.Calculator import Calculator
 
 class TestCalculator(unittest.TestCase):
     def setUp(self):
@@ -22,3 +22,22 @@ class TestCalculator(unittest.TestCase):
         self.assertEqual(self.calc.divide(10, 2), 5)
         with self.assertRaises(ValueError):
             self.calc.divide(10, 0)
+    
+    def test_power(self):
+        self.assertEqual(self.calc.power(2, 3), 8)
+        self.assertEqual(self.calc.power(5, 0), 1)
+    
+    def test_square_root(self):
+        self.assertEqual(self.calc.square_root(16), 4)
+        with self.assertRaises(ValueError):
+            self.calc.square_root(-1)
+    
+    def test_modulus(self):
+        self.assertEqual(self.calc.modulus(10, 3), 1)
+        with self.assertRaises(ValueError):
+            self.calc.modulus(10, 0)
+    
+    def test_divide_negative(self):
+        self.assertEqual(self.calc.divide(-10, 2), -5)
+        with self.assertRaises(ValueError):
+            self.calc.divide(-10, 0)

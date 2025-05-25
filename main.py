@@ -1,5 +1,5 @@
-from Calculator import Calculator
+from src.Render import Render
 
 if __name__ == "__main__":
-    calc = Calculator()
-    
+    render = Render()
+    render.render()
