@@ -34,7 +34,6 @@ class Calculator:
     
     def add_to_num(self, value):
         self.num += str(value)
-        print(self.num)
     
     def return_num(self):
         if not self.num:
@@ -47,3 +46,34 @@ class Calculator:
     
     def clear_stack(self):
         self.stack.clear()
+    
+    def set_operator(self, operator):
+        self.operator = operator
+        self.clear_num()
+    
+    def calculate(self):
+        if not self.stack or not self.num:
+            return None
+        
+        num1 = self.stack.pop()
+        num2 = self.return_num()
+        
+        if self.operator == "+":
+            result = self.add(num1, num2)
+        elif self.operator == "-":
+            result = self.subtract(num1, num2)
+        elif self.operator == "*":
+            result = self.multiply(num1, num2)
+        elif self.operator == "/":
+            result = self.divide(num1, num2)
+        elif self.operator == "^":
+            result = self.power(num1, num2)
+        elif self.operator == "√":
+            result = self.square_root(num2)
+        elif self.operator == "%":
+            result = self.modulus(num1, num2)
+        else:
+            raise ValueError("Unknown operator")
+        
+        self.clear_num()
+        return result
