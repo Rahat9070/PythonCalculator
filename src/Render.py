@@ -20,9 +20,9 @@ class Render():
         self.txt = ttk.Entry(self.frm, textvariable=self.txt_var, width=20, font=("Comic Sans MS", 16), justify="right", state="readonly")
         self.txt.grid(column=1, row=0, columnspan=5)
         self.txt_operator_var = StringVar()
-        self.txt_operator = ttk.Entry(self.frm, textvariable=self.txt_operator_var, width=1, font=("Comic Sans MS", 16), justify="center", state="readonly")
+        self.txt_operator = ttk.Entry(self.frm, textvariable=self.txt_operator_var, width=2, font=("Comic Sans MS", 15), justify="center", state="readonly")
         self.txt_operator.grid(column=0, row=0, columnspan=1)
-        self.txt_operator_var.set("+")
+        self.txt_operator_var.set("")
         self.txt_var.set("0")
 
     def create_buttons(self):
@@ -35,12 +35,15 @@ class Render():
         ttk.Button(self.frm, text="5", command=lambda: self.update_values(5)).grid(column=1, row=2)
         ttk.Button(self.frm, text="6", command=lambda: self.update_values(6)).grid(column=2, row=2)
         ttk.Button(self.frm, text="x", command=lambda: self.update_operator("*")).grid(column=3, row=2)
-        ttk.Button(self.frm, text="/", command=lambda: self.update_operator("/")).grid(column=4, row=2)
+        ttk.Button(self.frm, text="÷", command=lambda: self.update_operator("÷")).grid(column=4, row=2)
         ttk.Button(self.frm, text="7", command=lambda: self.update_values(7)).grid(column=0, row=3)
         ttk.Button(self.frm, text="8", command=lambda: self.update_values(8)).grid(column=1, row=3)
         ttk.Button(self.frm, text="9", command=lambda: self.update_values(9)).grid(column=2, row=3)
         ttk.Button(self.frm, text="0", command=lambda: self.update_values(0)).grid(column=1, row=4)
-
+        ttk.Button(self.frm, text="^", command=lambda: self.update_operator("^")).grid(column=3, row=3)
+        ttk.Button(self.frm, text="√", command=lambda: self.update_operator("√")).grid(column=4, row=3)
+        ttk.Button(self.frm, text="%", command=lambda: self.update_operator("%")).grid(column=2, row=4)
+        ttk.Button(self.frm, text="C", command=lambda: self.clear()).grid(column=0, row=4)
         ttk.Button(self.frm, text="=", command=lambda: self.show_answer()).grid(column=3, row=4)
         ttk.Button(self.frm, text="Quit", command=self.root.destroy).grid(column=4, row=4)
     
@@ -58,9 +61,19 @@ class Render():
 
     
     def show_answer(self):
-        result = self.calculator.calculate()
+        result = 0
+        try:
+            result = self.calculator.calculate()
+        except ValueError as e:
+            self.txt_var.set(str(e))
+            return
         if result is not None:
             self.txt_var.set(str(result))
         else:
             self.txt_var.set("Error")
         self.calculator.clear_num()
+    
+    def clear(self):
+        self.calculator.clear_function()
+        self.txt_var.set("0")
+        self.txt_operator_var.set("")

@@ -51,6 +51,11 @@ class Calculator:
         self.operator = operator
         self.clear_num()
     
+    def clear_function(self):
+        self.clear_num()
+        self.clear_stack()
+        self.operator = ""
+
     def calculate(self):
         if not self.stack or not self.num:
             return None
@@ -64,7 +69,7 @@ class Calculator:
             result = self.subtract(num1, num2)
         elif self.operator == "*":
             result = self.multiply(num1, num2)
-        elif self.operator == "/":
+        elif self.operator == "÷":
             result = self.divide(num1, num2)
         elif self.operator == "^":
             result = self.power(num1, num2)
