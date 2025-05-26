@@ -34,7 +34,7 @@ class Render():
         ttk.Button(self.frm, text="4", command=lambda: self.update_values(4)).grid(column=0, row=2)
         ttk.Button(self.frm, text="5", command=lambda: self.update_values(5)).grid(column=1, row=2)
         ttk.Button(self.frm, text="6", command=lambda: self.update_values(6)).grid(column=2, row=2)
-        ttk.Button(self.frm, text="x", command=lambda: self.update_operator("*")).grid(column=3, row=2)
+        ttk.Button(self.frm, text="x", command=lambda: self.update_operator("x")).grid(column=3, row=2)
         ttk.Button(self.frm, text="÷", command=lambda: self.update_operator("÷")).grid(column=4, row=2)
         ttk.Button(self.frm, text="7", command=lambda: self.update_values(7)).grid(column=0, row=3)
         ttk.Button(self.frm, text="8", command=lambda: self.update_values(8)).grid(column=1, row=3)
@@ -44,8 +44,8 @@ class Render():
         ttk.Button(self.frm, text="√", command=lambda: self.update_operator("√")).grid(column=4, row=3)
         ttk.Button(self.frm, text="%", command=lambda: self.update_operator("%")).grid(column=2, row=4)
         ttk.Button(self.frm, text="C", command=lambda: self.clear()).grid(column=0, row=4)
-        ttk.Button(self.frm, text="=", command=lambda: self.show_answer()).grid(column=3, row=4)
-        ttk.Button(self.frm, text="Quit", command=self.root.destroy).grid(column=4, row=4)
+        ttk.Button(self.frm, text=".", command=lambda: self.update_values(".")).grid(column=3, row=4)
+        ttk.Button(self.frm, text="=", command=lambda: self.show_answer()).grid(column=4, row=4)
     
     def update_values(self, num):
         self.calculator.add_to_num(num) 
@@ -56,8 +56,12 @@ class Render():
             self.txt_var.set(str(num))
     
     def update_operator(self, operator):
-        self.txt_operator_var.set(operator)
-        self.calculator.set_operator(operator)
+        if operator == '-' and not self.calculator.num:
+            self.calculator.set_subtract_flag(True)
+            self.txt_var.set("-")
+        else:
+            self.txt_operator_var.set(operator)
+            self.calculator.set_operator(operator)
 
     
     def show_answer(self):

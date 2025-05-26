@@ -3,7 +3,7 @@ class Calculator:
         self.num = ""
         self.stack = []
         self.operator = ""
-        pass
+        self.subtractFlag = False
 
     def add(self, a, b):
         return a + b
@@ -38,7 +38,9 @@ class Calculator:
     def return_num(self):
         if not self.num:
             return 0
-        return int(self.num)
+        if self.subtractFlag:
+            return float(self.num) * -1
+        return float(self.num)
             
     def clear_num(self):
         self.stack.append(self.return_num())
@@ -50,10 +52,12 @@ class Calculator:
     def set_operator(self, operator):
         self.operator = operator
         self.clear_num()
+        self.set_subtract_flag(False)
     
     def clear_function(self):
         self.clear_num()
         self.clear_stack()
+        self.subtractFlag = False
         self.operator = ""
 
     def calculate(self):
@@ -67,7 +71,7 @@ class Calculator:
             result = self.add(num1, num2)
         elif self.operator == "-":
             result = self.subtract(num1, num2)
-        elif self.operator == "*":
+        elif self.operator == "x":
             result = self.multiply(num1, num2)
         elif self.operator == "÷":
             result = self.divide(num1, num2)
@@ -82,3 +86,6 @@ class Calculator:
         
         self.clear_num()
         return result
+    
+    def set_subtract_flag(self, bool):
+        self.subtractFlag = bool
