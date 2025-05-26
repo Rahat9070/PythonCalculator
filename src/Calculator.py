@@ -4,6 +4,7 @@ class Calculator:
         self.stack = []
         self.operator = ""
         self.subtractFlag = False
+        self.decimalFlag = False
 
     def add(self, a, b):
         return a + b
@@ -35,6 +36,9 @@ class Calculator:
     def add_to_num(self, value):
         self.num += str(value)
     
+    def get_num_string(self):
+        return self.num
+
     def return_num(self):
         if not self.num:
             return 0
@@ -53,12 +57,15 @@ class Calculator:
         self.operator = operator
         self.clear_num()
         self.set_subtract_flag(False)
+        self.set_decimal_flag(False)
     
     def clear_function(self):
         self.clear_num()
         self.clear_stack()
         self.subtractFlag = False
+        self.decimalFlag = False
         self.operator = ""
+
 
     def calculate(self):
         if not self.stack or not self.num:
@@ -87,5 +94,14 @@ class Calculator:
         self.clear_num()
         return result
     
+    def get_subtract_flag(self):
+        return self.subtractFlag
+
     def set_subtract_flag(self, bool):
         self.subtractFlag = bool
+    
+    def get_decimal_flag(self):
+        return self.decimalFlag
+
+    def set_decimal_flag(self, bool):
+        self.decimalFlag = bool

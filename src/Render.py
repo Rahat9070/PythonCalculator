@@ -48,15 +48,24 @@ class Render():
         ttk.Button(self.frm, text="=", command=lambda: self.show_answer()).grid(column=4, row=4)
     
     def update_values(self, num):
-        self.calculator.add_to_num(num) 
-        num = self.calculator.return_num()
-        if num == 0:
-            self.txt_var.set("0")
+        if self.calculator.get_num_string() == ".":
+            if not self.calculator.get_decimal_flag():
+                if self.calculator.get_num_string():
+                    self.calculator.num += "."
+                else:
+                    self.calculator.num = "0."
+                    self.txt_var.set("0.")
+                self.calculator.set_decimal_flag(True)
         else:
-            self.txt_var.set(str(num))
+            self.calculator.add_to_num(num) 
+            num = self.calculator.return_num()
+            if num == 0:
+                self.txt_var.set("0")
+            else:
+                self.txt_var.set(str(num))
     
     def update_operator(self, operator):
-        if operator == '-' and not self.calculator.num:
+        if operator == '-' and not self.calculator.get_num_string():
             self.calculator.set_subtract_flag(True)
             self.txt_var.set("-")
         else:
