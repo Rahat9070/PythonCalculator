@@ -49,6 +49,78 @@ class TestCalculator(unittest.TestCase):
     def test_modulous_zero(self):
         with self.assertRaises(ValueError):
             self.calc.modulus(7, 0)
+    
+    def test_add_to_num(self):
+        self.calc.add_to_num(5)
+        self.assertEqual(self.calc.get_num_string(), "5")
+        self.calc.add_to_num(3)
+        self.assertEqual(self.calc.get_num_string(), "53")
+    
+    def test_return_num(self):
+        self.calc.add_to_num(5)
+        self.assertEqual(self.calc.return_num(), 5)
+        self.calc.add_to_num(-3)
+        self.assertEqual(self.calc.return_num(), -3)
+    
+    def test_clear_num(self):
+        self.calc.add_to_num(5)
+        self.calc.clear_num()
+        self.assertEqual(self.calc.get_num_string(), "")
+        self.assertEqual(self.calc.return_num(), 5)
+    
+    def test_clear_stack(self):
+        self.calc.add_to_num(5)
+        self.calc.clear_num()
+        self.calc.clear_stack()
+        self.assertEqual(self.calc.stack, [])
+    
+    def test_set_operator(self):
+        self.calc.set_operator('+')
+        self.assertEqual(self.calc.operator, '+')
+        self.calc.add_to_num(5)
+        self.calc.clear_num()
+        self.assertEqual(self.calc.get_num_string(), "")
+    
+    def test_clear_function(self):
+        self.calc.add_to_num(5)
+        self.calc.set_operator('+')
+        self.calc.clear_function()
+        self.assertEqual(self.calc.get_num_string(), "")
+        self.assertEqual(self.calc.operator, "")
+        self.assertFalse(self.calc.subtractFlag)
+        self.assertFalse(self.calc.decimalFlag)
+    
+    def test_set_subtract_flag(self):
+        self.calc.set_subtract_flag(True)
+        self.assertTrue(self.calc.subtractFlag)
+        self.calc.set_subtract_flag(False)
+        self.assertFalse(self.calc.subtractFlag)
+    
+    def test_set_decimal_flag(self):
+        self.calc.set_decimal_flag(True)
+        self.assertTrue(self.calc.decimalFlag)
+        self.calc.set_decimal_flag(False)
+        self.assertFalse(self.calc.decimalFlag)
+    
+    def test_get_num_string(self):
+        self.calc.add_to_num(5)
+        self.assertEqual(self.calc.get_num_string(), "5")
+        self.calc.add_to_num(3)
+        self.assertEqual(self.calc.get_num_string(), "53")
+        self.calc.clear_num()
+        self.assertEqual(self.calc.get_num_string(), "")
+    
+    def test_get_decimal_flag(self):
+        self.calc.set_decimal_flag(True)
+        self.assertTrue(self.calc.get_decimal_flag())
+        self.calc.set_decimal_flag(False)
+        self.assertFalse(self.calc.get_decimal_flag())
+    
+    def test_get_subtract_flag(self):
+        self.calc.set_subtract_flag(True)
+        self.assertTrue(self.calc.get_subtract_flag())
+        self.calc.set_subtract_flag(False)
+        self.assertFalse(self.calc.get_subtract_flag())
 
 if __name__ == '__main__':
     unittest.main()
