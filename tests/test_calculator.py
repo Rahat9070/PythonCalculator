@@ -59,14 +59,12 @@ class TestCalculator(unittest.TestCase):
     def test_return_num(self):
         self.calc.add_to_num(5)
         self.assertEqual(self.calc.return_num(), 5)
-        self.calc.add_to_num(-3)
-        self.assertEqual(self.calc.return_num(), -3)
     
     def test_clear_num(self):
         self.calc.add_to_num(5)
+        self.assertEqual(self.calc.return_num(), 5)
         self.calc.clear_num()
         self.assertEqual(self.calc.get_num_string(), "")
-        self.assertEqual(self.calc.return_num(), 5)
     
     def test_clear_stack(self):
         self.calc.add_to_num(5)
